@@ -11,3 +11,4 @@ langchain4j:
     dashscope:
       chat-model:
         model-name: qwen-max
+        api-key: 见 application-local.yml

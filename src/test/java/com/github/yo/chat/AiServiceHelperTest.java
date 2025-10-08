@@ -1,5 +1,7 @@
 package com.github.yo.chat;
 
+import dev.langchain4j.data.message.TextContent;
+import dev.langchain4j.data.message.UserMessage;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -25,5 +27,15 @@ class AiServiceHelperTest {
 
         resp = aiServiceHelper.simpleTextChat("我是谁你还记得吗");
         log.info("resp: {}", resp);
+    }
+
+    @Test
+    void jsonChat() {
+        AiServiceHelper.JsonResp jsonResp = aiServiceHelper.jsonChat(
+                UserMessage.userMessage(
+                        TextContent.from("我叫鱼丸，练习时长两年半，请帮我制定一份提升计划")
+                )
+        );
+        log.info("jsonResp: {}", jsonResp);
     }
 }
