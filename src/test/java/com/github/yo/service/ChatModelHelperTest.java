@@ -29,4 +29,11 @@ class ChatModelHelperTest {
         String resp = chatModelHelper.multimodalityChat(userMessage);
         log.info("resp: {}", resp);
     }
+
+    @Test
+    void simpleTextChatWithSystemMessage() {
+        UserMessage userMessage = UserMessage.from("你好");
+        String resp = chatModelHelper.simpleTextChatWithSystemMessage(userMessage);
+        log.info("resp: {}", resp);
+    }
 }
