@@ -1,7 +1,7 @@
 spring:
   application:
     name: learn-langchain4j
-server:
-  port: 8888
   profiles:
     active: local
+server:
+  port: 8888
