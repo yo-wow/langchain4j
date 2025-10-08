@@ -1,6 +1,7 @@
 package com.github.yo.chat.factory;
 
 import com.github.yo.chat.AiServiceHelper;
+import com.github.yo.chat.utils.InterviewQuestionUtil;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatModel;
@@ -21,7 +22,10 @@ public class AiServiceHelperFactory {
     private final ChatModel qwenChatModel;
     // 持久化的会话记忆存储
     private final ChatMemoryStore persistentChatMemoryStore;
+    // 自定义的RAG
     private final ContentRetriever contentRetriever;
+    // 自定义的tools之一
+    private final InterviewQuestionUtil interviewQuestionUtil;
 
     /**
      * 创建 带仅内存存储的会话记忆的 AiServiceHelper
@@ -48,11 +52,11 @@ public class AiServiceHelperFactory {
          .build();
          */
 
-        // ---------- 自定义RAG ----------
         return AiServices.builder(AiServiceHelper.class)
                 .chatModel(qwenChatModel) // 会话模型
                 .chatMemory(chatMemory) // 会话记忆
                 .contentRetriever(contentRetriever) // 自定义RAG
+                .tools(interviewQuestionUtil) // 工具调用
                 .build();
     }
 }

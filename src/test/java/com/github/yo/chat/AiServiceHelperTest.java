@@ -57,4 +57,16 @@ class AiServiceHelperTest {
         // 引用的原文档
         log.info("result sources: {}", result.sources());
     }
+
+    @Test
+    void toolCallingChat() {
+        Result<String> result = aiServiceHelper.ragChat(
+                UserMessage.userMessage(
+                        TextContent.from("有哪些Java相关的常见面试题？")
+                )
+        );
+        log.info("result content: {}", result.content());
+        // 引用的原文档
+        log.info("result sources: {}", result.sources());
+    }
 }
