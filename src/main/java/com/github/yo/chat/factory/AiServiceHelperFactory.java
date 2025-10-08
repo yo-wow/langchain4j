@@ -18,7 +18,6 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 @Slf4j
 public class AiServiceHelperFactory {
-
     // 会话模型
     private final ChatModel qwenChatModel;
     // 持久化的会话记忆存储
@@ -30,11 +29,6 @@ public class AiServiceHelperFactory {
     // MCP工具
     private final McpToolProvider mcpToolProvider;
 
-    /**
-     * 创建 带仅内存存储的会话记忆的 AiServiceHelper
-     *
-     * @return
-     */
     @Bean
     public AiServiceHelper aiServiceHelper() {
         // 会话记忆
