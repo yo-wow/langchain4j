@@ -69,4 +69,17 @@ class AiServiceHelperTest {
         // 引用的原文档
         log.info("result sources: {}", result.sources());
     }
+
+    @Test
+    void mcpToolCallingChat() {
+        Result<String> result = aiServiceHelper.ragChat(
+                UserMessage.userMessage(
+                        TextContent.from("Alibaba对互联网的贡献")
+                )
+        );
+        log.info("result content: {}", result.content());
+        // 引用的原文档
+        log.info("result sources: {}", result.sources());
+    }
+
 }

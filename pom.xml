@@ -63,6 +63,14 @@
             <artifactId>langchain4j-easy-rag</artifactId>
             <version>1.1.0-beta7</version>
         </dependency>
+
+        <!--  langchain4j MCP -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-mcp</artifactId>
+            <!-- https://mvnrepository.com/artifact/dev.langchain4j/langchain4j-mcp -->
+            <version>1.1.0-beta7</version>
+        </dependency>
     </dependencies>
 
     <build>

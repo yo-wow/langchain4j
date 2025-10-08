@@ -11,7 +11,9 @@ langchain4j:
     dashscope:
       chat-model:
         model-name: qwen-max
-        api-key: 见 application-local.yml
+        api-key: <Your API Key>
       embedding-model:
         model-name: text-embedding-v4
-        api-key: 见 application-local.yml
+        api-key: <Your API Key>
+big-model:
+  api-key: <Your API Key>
