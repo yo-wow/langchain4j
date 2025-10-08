@@ -17,4 +17,13 @@ class AiServiceHelperTest {
         String resp = aiServiceHelper.simpleTextChat("你好");
         log.info("resp: {}", resp);
     }
+
+    @Test
+    void simpleTextChatWithMemory() {
+        String resp = aiServiceHelper.simpleTextChat("你好，我是鱼丸");
+        log.info("resp: {}", resp);
+
+        resp = aiServiceHelper.simpleTextChat("我是谁你还记得吗");
+        log.info("resp: {}", resp);
+    }
 }
