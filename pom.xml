@@ -37,18 +37,25 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- langchain4j chat model -->
+        <!-- langchain4j Chat Model -->
         <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-community-dashscope-spring-boot-starter</artifactId>
             <version>1.1.0-beta7</version>
         </dependency>
 
-        <!-- langchain4j ai service-->
+        <!-- langchain4j AI Service-->
         <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j</artifactId>
             <version>1.1.0</version>
+        </dependency>
+
+        <!-- langchain4j RAG easy -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-easy-rag</artifactId>
+            <version>1.1.0-beta7</version>
         </dependency>
     </dependencies>
 

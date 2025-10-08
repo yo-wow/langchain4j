@@ -1,6 +1,7 @@
 package com.github.yo.chat;
 
 import dev.langchain4j.data.message.UserMessage;
+import dev.langchain4j.service.Result;
 import dev.langchain4j.service.SystemMessage;
 
 import java.util.List;
@@ -26,4 +27,7 @@ public interface AiServiceHelper {
      */
     record JsonResp(String name, List<String> suggestions) {
     }
+
+    @SystemMessage(fromResource = "system-prompt.txt")
+    Result<String> ragChat(UserMessage userMessage);
 }

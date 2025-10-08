@@ -2,6 +2,7 @@ package com.github.yo.chat;
 
 import dev.langchain4j.data.message.TextContent;
 import dev.langchain4j.data.message.UserMessage;
+import dev.langchain4j.service.Result;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -37,5 +38,23 @@ class AiServiceHelperTest {
                 )
         );
         log.info("jsonResp: {}", jsonResp);
+    }
+
+    @Test
+    void easyRagChat() {
+        String resp = aiServiceHelper.simpleTextChat("有哪些Java相关的常见面试题？");
+        log.info("resp: {}", resp);
+    }
+
+    @Test
+    void customRagChat() {
+        Result<String> result = aiServiceHelper.ragChat(
+                UserMessage.userMessage(
+                        TextContent.from("有哪些Java相关的常见面试题？")
+                )
+        );
+        log.info("result content: {}", result.content());
+        // 引用的原文档
+        log.info("result sources: {}", result.sources());
     }
 }

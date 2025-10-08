@@ -12,3 +12,6 @@ langchain4j:
       chat-model:
         model-name: qwen-max
         api-key: 见 application-local.yml
+      embedding-model:
+        model-name: text-embedding-v4
+        api-key: 见 application-local.yml
