@@ -1,4 +1,4 @@
-package com.github.yo.service;
+package com.github.yo.chat;
 
 import dev.langchain4j.data.message.SystemMessage;
 import dev.langchain4j.data.message.UserMessage;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Slf4j
 public class ChatModelHelper {
+
     private final ChatModel qwenChatModel;
 
     private static final String SYSTEM_MESSAGE = """

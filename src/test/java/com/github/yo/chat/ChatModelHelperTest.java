@@ -1,4 +1,4 @@
-package com.github.yo.service;
+package com.github.yo.chat;
 
 import dev.langchain4j.data.message.ImageContent;
 import dev.langchain4j.data.message.TextContent;
