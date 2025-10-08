@@ -82,4 +82,16 @@ class AiServiceHelperTest {
         log.info("result sources: {}", result.sources());
     }
 
+    @Test
+    void guardrailChat() {
+        Result<String> result = aiServiceHelper.ragChat(
+                UserMessage.userMessage(
+                        TextContent.from("介绍下nio这家公司")
+                )
+        );
+        log.info("result content: {}", result.content());
+        // 引用的原文档
+        log.info("result sources: {}", result.sources());
+    }
+
 }
