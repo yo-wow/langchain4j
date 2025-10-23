@@ -6,6 +6,7 @@ import dev.langchain4j.mcp.McpToolProvider;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatModel;
+import dev.langchain4j.model.chat.StreamingChatModel;
 import dev.langchain4j.rag.content.retriever.ContentRetriever;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.store.memory.chat.ChatMemoryStore;
@@ -28,6 +29,8 @@ public class AiServiceHelperFactory {
     private final InterviewQuestionUtil interviewQuestionUtil;
     // MCP工具
     private final McpToolProvider mcpToolProvider;
+    // SSE
+    private final StreamingChatModel qwenStreamingChatModel;
 
     @Bean
     public AiServiceHelper aiServiceHelper() {
@@ -52,9 +55,11 @@ public class AiServiceHelperFactory {
         return AiServices.builder(AiServiceHelper.class)
                 .chatModel(qwenChatModel) // 会话模型
                 .chatMemory(chatMemory) // 会话记忆
+                .chatMemoryProvider(memoryId -> MessageWindowChatMemory.withMaxMessages(10)) // 每个会话记忆独立存储
                 .contentRetriever(contentRetriever) // 自定义RAG
                 .tools(interviewQuestionUtil) // 工具调用
                 .toolProvider(mcpToolProvider) // MCP工具调用
+                .streamingChatModel(qwenStreamingChatModel) // SSE
                 .build();
     }
 }

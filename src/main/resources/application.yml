@@ -5,6 +5,8 @@ spring:
     active: local
 server:
   port: 8888
+  servlet:
+    context-path: /api
 
 langchain4j:
   community:
@@ -14,6 +16,9 @@ langchain4j:
         api-key: <Your API Key>
       embedding-model:
         model-name: text-embedding-v4
+        api-key: <Your API Key>
+      streaming-chat-model:
+        model-name: qwen-max
         api-key: <Your API Key>
 big-model:
   api-key: <Your API Key>

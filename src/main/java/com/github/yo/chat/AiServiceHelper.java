@@ -2,9 +2,11 @@ package com.github.yo.chat;
 
 import com.github.yo.chat.guardrail.SafeInputGuardrail;
 import dev.langchain4j.data.message.UserMessage;
+import dev.langchain4j.service.MemoryId;
 import dev.langchain4j.service.Result;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.guardrail.InputGuardrails;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -33,4 +35,7 @@ public interface AiServiceHelper {
 
     @SystemMessage(fromResource = "system-prompt.txt")
     Result<String> ragChat(UserMessage userMessage);
+
+    @SystemMessage(fromResource = "system-prompt.txt")
+    Flux<String> chatStream(@MemoryId int memoryId, @dev.langchain4j.service.UserMessage UserMessage userMessage);
 }
