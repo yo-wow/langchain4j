@@ -1,7 +1,8 @@
 package com.github.yo.chat.config;
 
 import dev.langchain4j.data.document.Document;
-import dev.langchain4j.data.document.loader.FileSystemDocumentLoader;
+import dev.langchain4j.data.document.DocumentParser;
+import dev.langchain4j.data.document.parser.TextDocumentParser;
 import dev.langchain4j.data.document.splitter.DocumentByParagraphSplitter;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.model.embedding.EmbeddingModel;
@@ -14,7 +15,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
@@ -27,9 +33,10 @@ public class RagConfig {
     private final EmbeddingStore<TextSegment> embeddingStore = new InMemoryEmbeddingStore<>();
 
     @Bean
-    public ContentRetriever contentRetriever() {
+    public ContentRetriever contentRetriever() throws IOException {
         // 1.1 加载文档
-        List<Document> documents = FileSystemDocumentLoader.loadDocuments("src/main/resources/docs");
+        List<Document> documents = loadDocumentsFromClasspath();
+
         // 1.2 文档切割：将每个文档按段落切割，最大1000字符，每次重叠最多200字符，重叠目的是为了防止文档切割出现的断层影响
         DocumentByParagraphSplitter paragraphSplitter =
                 new DocumentByParagraphSplitter(1000, 200);
@@ -58,5 +65,32 @@ public class RagConfig {
                 .maxResults(5) // 最多返回5个结果
                 .minScore(0.75) // 过滤掉分数低于0.75的
                 .build();
+    }
+
+    private List<Document> loadDocumentsFromClasspath() throws IOException {
+        List<Document> documents = new ArrayList<>();
+        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        Resource[] resources = resolver.getResources("classpath:docs/*");
+
+        DocumentParser parser = new TextDocumentParser();
+
+        for (Resource resource : resources) {
+            try {
+                // 使用DocumentParser解析文档
+                Document document = parser.parse(resource.getInputStream());
+                // 添加文件名到元数据
+                document.metadata().put("file_name", resource.getFilename());
+                documents.add(document);
+                log.info("Loaded document: {}", resource.getFilename());
+            } catch (IOException e) {
+                log.error("Failed to load document: {}", resource.getFilename(), e);
+            }
+        }
+
+        if (documents.isEmpty()) {
+            log.warn("No documents found in classpath:docs/ directory");
+        }
+
+        return documents;
     }
 }
